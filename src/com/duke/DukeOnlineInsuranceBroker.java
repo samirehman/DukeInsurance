@@ -11,30 +11,10 @@ import java.util.*;
 
 public class DukeOnlineInsuranceBroker implements InsuranceBroker {
 
-    private static BigDecimal STANDARD_ADMIN_CHARGE;
-    private static long MAX_QUOTE_AGE_MILLIS;
     private Map<UUID, Quote> quotes;
 
     public DukeOnlineInsuranceBroker() {
         quotes = new HashMap<UUID, Quote>();
-        setStandardAdminCharge(new BigDecimal(10));
-        setMaxQuoteAgeMillis(15 * 60 * 1000);
-    }
-
-    private static BigDecimal getStandardAdminCharge() {
-        return STANDARD_ADMIN_CHARGE;
-    }
-
-    public static void setStandardAdminCharge(BigDecimal standardAdminCharge) {
-        STANDARD_ADMIN_CHARGE = standardAdminCharge;
-    }
-
-    public static long getMaxQuoteAgeMillis() {
-        return MAX_QUOTE_AGE_MILLIS;
-    }
-
-    public static void setMaxQuoteAgeMillis(long maxQuoteAgeMillis) {
-        MAX_QUOTE_AGE_MILLIS = maxQuoteAgeMillis;
     }
 
 
@@ -58,15 +38,18 @@ public class DukeOnlineInsuranceBroker implements InsuranceBroker {
 
         Quote quote = quotes.get(id);
 
-        long timeNow = System.currentTimeMillis();
-        long quoteAge = timeNow - quote.timestamp;
-
-        if (quoteAge > getMaxQuoteAgeMillis()) {
+        if (!QouteBusinessRules.hasQuoteExpired(quote.timestamp)) {
             throw new IllegalStateException("Quote expired, please search again.");
         }
 
+
+        long quoteAge = QouteBusinessRules.getQuoteAge(quote.timestamp);
+
+        BigDecimal adminCharge = ChargeCalculationRules.getStandardAdminCharge(quoteAge, quote.policy.premium);
+        BigDecimal totalPrice  = quote.policy.premium.add(adminCharge);
+
         Purchase completePurchase;
-        BigDecimal totalPrice = quote.policy.premium.add(getStandardAdminCharge());
+        long timeNow = System.currentTimeMillis();
 
         completePurchase = new Purchase(totalPrice, quote, timeNow, userAuthToken);
         ProductionPurchaseCompletionSystem.getInstance().process(completePurchase);
