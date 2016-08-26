@@ -7,8 +7,8 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+//import static org.junit.Assert.assertTrue;
 
 /**
  * Created by samirehman on 24/08/2016.
@@ -47,10 +47,7 @@ public class DukeOnlineInsuranceBrokerTest {
         OldCarPremium = insuranceBroker.searchForCarInsurance("Audi", "A1", 2010).get(0).premium;
         NewCarPremium = insuranceBroker.searchForCarInsurance("Audi", "A1", 2015).get(0).premium;
 
-        //System.out.println("New Car Premium is :"+NewCarPremium+" is greater than Old Car Premium :"+OldCarPremium);
-        assertTrue(NewCarPremium.compareTo(OldCarPremium)>0);
-
-        //insuranceBroker.searchForCarInsurance("Audi", "A1", 2010).get(0).
+        assertTrue(NewCarPremium.compareTo(OldCarPremium) > 0);
 
     }
 }

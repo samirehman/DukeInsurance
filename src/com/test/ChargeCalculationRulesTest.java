@@ -74,48 +74,4 @@ public class ChargeCalculationRulesTest {
         assertThat(chargeCalcRules.getStandardAdminCharge(timeInMills,  premiumAmount.valueOf(500.0)), is(result.valueOf(5000,2)));
 
     }
-
-    /*
-    @Test
-    public void returnDefaultChargeAmountWhenOriginalAmountPctIsLessThanDefaulChargeAmount(){
-
-            //(BigDecimal pctFactor, BigDecimal originalAmount, BigDecimal defaultAdminCharge){
-       assertthat(chargeCalcRules.getAdminChargeAmount(BigDecimal.valueOf(0.10), BigDecimal.valueOf(100), BigDecimal.valueOf(100)),is(BigDecimal.valueOf(10))));
-
-    }
-    */
-
-/*
-        BigDecimal premiumAmount,result;
-        long timeInMills;
-
-
-        DukeOnlineInsuranceBroker insuranceBrokerTest = new DukeOnlineInsuranceBroker();
-
-        // No charge if less than 3 mins
-        timeInMills = 3*60*1000;
-        result = new BigDecimal("0.0");
-
-        assertThat(insuranceBrokerTest.CalcAdminCharge(timeInMills, BigDecimal.valueOf(100)),is(result));
-
-        // Between 3 and 10 min £15 or 5% whichever is greater
-
-        timeInMills = 4*60*1000;
-
-        assertThat(insuranceBrokerTest.CalcAdminCharge(timeInMills, BigDecimal.valueOf(100)),is(result.valueOf(1500,2)));
-        assertThat(insuranceBrokerTest.CalcAdminCharge(timeInMills, BigDecimal.valueOf(1000)),is(result.valueOf(5000,2)));
-
-        // Between 11 and 15 min £40 or 10% whichever is greater
-
-        timeInMills = 13*60*1000;
-
-        assertThat(insuranceBrokerTest.CalcAdminCharge(timeInMills, BigDecimal.valueOf(100)),is(result.valueOf(4000,2)));
-        assertThat(insuranceBrokerTest.CalcAdminCharge(timeInMills, BigDecimal.valueOf(2000)),is(result.valueOf(20000,2)));
-
-        //assertThat(insuranceBrokerTest.CalcAdminCharge(13,100),is(40.0));
-        //assertThat(insuranceBrokerTest.CalcAdminCharge(11,2000),is(200.0));
-
-    }
-
-*/
 }

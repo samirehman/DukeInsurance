@@ -4,7 +4,7 @@ public class QouteBusinessRules {
 
     private static long MAX_QUOTE_AGE_MILLIS = 15 * 60 * 1000;
 
-    private static long getMaxQuoteAgeMillis() {
+    public static long getMaxQuoteAgeMillis() {
 
         return MAX_QUOTE_AGE_MILLIS;
     }

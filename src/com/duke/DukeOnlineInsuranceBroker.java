@@ -42,7 +42,6 @@ public class DukeOnlineInsuranceBroker implements InsuranceBroker {
             throw new IllegalStateException("Quote expired, please search again.");
         }
 
-
         long quoteAge = QouteBusinessRules.getQuoteAge(quote.timestamp);
 
         BigDecimal adminCharge = ChargeCalculationRules.getStandardAdminCharge(quoteAge, quote.policy.premium);
@@ -54,5 +53,4 @@ public class DukeOnlineInsuranceBroker implements InsuranceBroker {
         completePurchase = new Purchase(totalPrice, quote, timeNow, userAuthToken);
         ProductionPurchaseCompletionSystem.getInstance().process(completePurchase);
     }
-
 }
