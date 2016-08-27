@@ -2,21 +2,30 @@ package com.duke;
 
 import java.math.BigDecimal;
 
-public class ChargeCalculationRules {
+public class ChargeCalculationRules implements IChargeCalculationRules {
 
     static BigDecimal STANDARD_ADMIN_CHARGE;
 
-    public static BigDecimal getStandardAdminCharge(double elapsedTime, BigDecimal premiumAmount) {
+    private static final IChargeCalculationRules INSTANCE = new ChargeCalculationRules();
+
+    public static IChargeCalculationRules getInstance(){
+        return INSTANCE;
+    }
+
+    @Override
+    public BigDecimal getStandardAdminCharge(double elapsedTime, BigDecimal premiumAmount) {
 
         STANDARD_ADMIN_CHARGE = standardAdminChargeCalculationRule(elapsedTime, premiumAmount);
         return STANDARD_ADMIN_CHARGE;
     }
 
-    public static void setStandardAdminCharge(BigDecimal standardAdminCharge) {
+    @Override
+    public void setStandardAdminCharge(BigDecimal standardAdminCharge) {
         STANDARD_ADMIN_CHARGE = standardAdminCharge;
     }
 
-    private static BigDecimal getAdminChargeAmount(BigDecimal pctFactor, BigDecimal originalAmount, BigDecimal defaultAdminCharge){
+    @Override
+    public BigDecimal getAdminChargeAmount(BigDecimal pctFactor, BigDecimal originalAmount, BigDecimal defaultAdminCharge){
 
         BigDecimal  pctPremiumAmount = BigDecimal.valueOf(0.0);
 
@@ -30,7 +39,8 @@ public class ChargeCalculationRules {
     }
 
 
-    private static BigDecimal standardAdminChargeCalculationRule(double TimeInMin, BigDecimal premiumAmount){
+    @Override
+    public BigDecimal standardAdminChargeCalculationRule(double TimeInMin, BigDecimal premiumAmount){
 
         final long QUOTE_AGE_THREE_MILLIS    =  3 * 60 * 1000; //  3 minutes
         final long QUOTE_AGE_TEN_MILLIS      = 10 * 60 * 1000; // 10 minutes

@@ -1,10 +1,9 @@
 package com.duke;
 
-import com.duke.insurance.Purchase;
 import com.duke.insurance.ProductionPurchaseCompletionSystem;
+import com.duke.insurance.Purchase;
 import com.duke.search.Policy;
 import com.duke.search.Quote;
-import com.duke.search.ProductionQuotingSystem;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -13,8 +12,20 @@ public class DukeOnlineInsuranceBroker implements InsuranceBroker {
 
     private Map<UUID, Quote> quotes;
 
-    public DukeOnlineInsuranceBroker() {
+    PurchaseService purchaseService;
+    QuotingSystem quotingSystem;
+    IChargeCalculationRules chargeCalculationRules;
+    IQouteBusinessRules qouteBusinessRules;
+
+    public DukeOnlineInsuranceBroker(PurchaseService pService, QuotingSystem qSystem, IChargeCalculationRules calculationRules,
+            IQouteBusinessRules qBusinessRules)
+    {
+
         quotes = new HashMap<UUID, Quote>();
+        purchaseService = pService;
+        quotingSystem = qSystem;
+        chargeCalculationRules = calculationRules;
+        qouteBusinessRules = qBusinessRules;
     }
 
 
@@ -22,7 +33,7 @@ public class DukeOnlineInsuranceBroker implements InsuranceBroker {
     public List<Policy> searchForCarInsurance(String make, String model, int year) {
 
         List<Policy> searchResults;
-        searchResults = ProductionQuotingSystem.getInstance().searchFor(make, model, year);
+        searchResults = quotingSystem.searchFor(make, model, year);
         for (Policy policy : searchResults) {
             quotes.put(policy.id, new Quote(policy, System.currentTimeMillis()));
         }
@@ -38,13 +49,13 @@ public class DukeOnlineInsuranceBroker implements InsuranceBroker {
 
         Quote quote = quotes.get(id);
 
-        if (!QouteBusinessRules.hasQuoteExpired(quote.timestamp)) {
+        if (!qouteBusinessRules.hasQuoteExpired(quote.timestamp)) {
             throw new IllegalStateException("Quote expired, please search again.");
         }
 
-        long quoteAge = QouteBusinessRules.getQuoteAge(quote.timestamp);
+        long quoteAge = qouteBusinessRules.getQuoteAge(quote.timestamp);
 
-        BigDecimal adminCharge = ChargeCalculationRules.getStandardAdminCharge(quoteAge, quote.policy.premium);
+        BigDecimal adminCharge = chargeCalculationRules.getStandardAdminCharge(quoteAge, quote.policy.premium);
         BigDecimal totalPrice  = quote.policy.premium.add(adminCharge);
 
         Purchase completePurchase;

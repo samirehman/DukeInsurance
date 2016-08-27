@@ -23,9 +23,11 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="Dukeinsurance" />
+        <module name="DukeInsurance" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="DukeInsurance" target="1.7" />
       <module name="Dukeinsurance" target="1.7" />
     </bytecodeTargetLevel>
   </component>

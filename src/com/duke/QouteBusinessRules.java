@@ -1,15 +1,23 @@
 package com.duke;
 
-public class QouteBusinessRules {
+public class QouteBusinessRules implements IQouteBusinessRules {
 
-    private static long MAX_QUOTE_AGE_MILLIS = 15 * 60 * 1000;
+    private long MAX_QUOTE_AGE_MILLIS = 15 * 60 * 1000;
 
-    public static long getMaxQuoteAgeMillis() {
+    private static IQouteBusinessRules INSTANCE = new QouteBusinessRules();
+
+    public static IQouteBusinessRules getINSTANCE() {
+        return INSTANCE;
+    }
+
+    @Override
+    public long getMaxQuoteAgeMillis() {
 
         return MAX_QUOTE_AGE_MILLIS;
     }
 
-    public static boolean hasQuoteExpired(long quoteTimeStamp){
+    @Override
+    public boolean hasQuoteExpired(long quoteTimeStamp){
 
         long quoteAge = getQuoteAge(quoteTimeStamp);
 
@@ -19,7 +27,8 @@ public class QouteBusinessRules {
             return true; // Quote still valid
     }
 
-    public static long getQuoteAge(long quoteTimeStamp) {
+    @Override
+    public long getQuoteAge(long quoteTimeStamp) {
 
         return System.currentTimeMillis() - quoteTimeStamp;
     }

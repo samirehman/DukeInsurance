@@ -1,6 +1,7 @@
-import com.duke.DukeOnlineInsuranceBroker;
-import com.duke.InsuranceBroker;
+import com.duke.*;
+import com.duke.insurance.ProductionPurchaseCompletionSystem;
 import com.duke.search.Policy;
+import com.duke.search.ProductionQuotingSystem;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,7 +10,13 @@ public class ExampleClient {
 
     public static void main(String[] args) throws Exception {
 
-        InsuranceBroker insuranceBroker = new DukeOnlineInsuranceBroker();
+        PurchaseService purchaseService = ProductionPurchaseCompletionSystem.getInstance();
+        QuotingSystem quotingSystem = ProductionQuotingSystem.getInstance();
+        IChargeCalculationRules chargeCalculationRules = ChargeCalculationRules.getInstance();
+        IQouteBusinessRules qouteBusinessRules = QouteBusinessRules.getINSTANCE();
+
+
+        InsuranceBroker insuranceBroker = new DukeOnlineInsuranceBroker(purchaseService,quotingSystem,chargeCalculationRules,qouteBusinessRules);
         String userAuthToken = "tom@example.com";
 
         List<Policy> searchResults = insuranceBroker.searchForCarInsurance("Audi", "A1", 2014);
