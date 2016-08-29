@@ -18,10 +18,11 @@ public class DukeOnlineInsuranceBrokerTest {
 
     PurchaseService purchaseService = ProductionPurchaseCompletionSystem.getInstance();
     QuotingSystem quotingSystem = ProductionQuotingSystem.getInstance();
-    IChargeCalculationRules chargeCalculationRules = ChargeCalculationRules.getInstance();
-    IQouteBusinessRules qouteBusinessRules = QouteBusinessRules.getINSTANCE();
+    Charges chargeCalculationRules = ProductionChargeCalculationRules.getInstance();
+    QouteRules qouteBusinessRules = ProductionQouteBusinessRules.getINSTANCE();
 
-    InsuranceBroker insuranceBroker = new DukeOnlineInsuranceBroker(purchaseService,quotingSystem,chargeCalculationRules,qouteBusinessRules);
+    //InsuranceBroker insuranceBroker = new DukeOnlineInsuranceBroker(purchaseService,quotingSystem,chargeCalculationRules,qouteBusinessRules);
+    InsuranceBroker insuranceBroker = new DukeOnlineInsuranceBroker();
 
     @Test
     public void searchCarFromExistingCarListShouldReturnTheSameCar() throws Exception {

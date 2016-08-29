@@ -1,7 +1,7 @@
 package com.test;
 
 //import com.duke.DukeOnlineInsuranceBroker;
-import com.duke.ChargeCalculationRules;
+import com.duke.ProductionChargeCalculationRules;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -12,12 +12,12 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by samirehman on 25/08/2016.
  */
-public class ChargeCalculationRulesTest {
+public class ProductionChargeCalculationRulesTest {
 
-    double timeInMills;
+    long timeInMills;
     BigDecimal premiumAmount,result ;
 
-    ChargeCalculationRules chargeCalcRules = new ChargeCalculationRules();
+    ProductionChargeCalculationRules chargeCalcRules = new ProductionChargeCalculationRules();
 
 
     @Test

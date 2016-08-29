@@ -1,6 +1,6 @@
 package com.test;
 
-import com.duke.QouteBusinessRules;
+import com.duke.ProductionQouteBusinessRules;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 /**
  * Created by samirehman on 25/08/2016.
  */
-public class QouteBusinessRulesTest {
+public class ProductionQouteBusinessRulesTest {
 
 
     @Test
@@ -17,7 +17,7 @@ public class QouteBusinessRulesTest {
         final long QUOTE_AGE_SIXTEEN_MILLIS    =  16 * 60 * 1000; //  Sixteen minutes
 
         long quoteTimeStamp = System.currentTimeMillis() - QUOTE_AGE_SIXTEEN_MILLIS;
-        assertThat(QouteBusinessRules.getINSTANCE().hasQuoteExpired(quoteTimeStamp),is(false));
+        assertThat(ProductionQouteBusinessRules.getINSTANCE().hasQuoteExpired(quoteTimeStamp),is(false));
     }
     @Test
     public void quoteValidIfCurrentTimeIsLessThanMaxAgeMillis() throws Exception {
@@ -25,7 +25,7 @@ public class QouteBusinessRulesTest {
         final long QUOTE_AGE_THREE_MILLIS    =  3 * 60 * 1000; //  3 minutes
 
         long quoteTimeStamp = System.currentTimeMillis() - QUOTE_AGE_THREE_MILLIS ;
-        assertThat(QouteBusinessRules.getINSTANCE().hasQuoteExpired(quoteTimeStamp),is(true));
+        assertThat(ProductionQouteBusinessRules.getINSTANCE().hasQuoteExpired(quoteTimeStamp),is(true));
     }
 
 }

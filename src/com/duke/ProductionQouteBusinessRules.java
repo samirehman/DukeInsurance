@@ -1,12 +1,12 @@
 package com.duke;
 
-public class QouteBusinessRules implements IQouteBusinessRules {
+public class ProductionQouteBusinessRules implements QouteRules {
 
     private long MAX_QUOTE_AGE_MILLIS = 15 * 60 * 1000;
 
-    private static IQouteBusinessRules INSTANCE = new QouteBusinessRules();
+    private static QouteRules INSTANCE = new ProductionQouteBusinessRules();
 
-    public static IQouteBusinessRules getINSTANCE() {
+    public static QouteRules getINSTANCE() {
         return INSTANCE;
     }
 
