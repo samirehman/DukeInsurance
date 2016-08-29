@@ -1,14 +1,14 @@
 package com.test;
 
-import com.duke.*;
-import com.duke.insurance.ProductionPurchaseCompletionSystem;
-import com.duke.search.ProductionQuotingSystem;
+import com.duke.DukeOnlineInsuranceBroker;
+import com.duke.InsuranceBroker;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 //import static org.junit.Assert.assertTrue;
 
 /**
@@ -16,13 +16,7 @@ import static org.junit.Assert.*;
  */
 public class DukeOnlineInsuranceBrokerTest {
 
-    PurchaseService purchaseService = ProductionPurchaseCompletionSystem.getInstance();
-    QuotingSystem quotingSystem = ProductionQuotingSystem.getInstance();
-    Charges chargeCalculationRules = ProductionChargeCalculationRules.getInstance();
-    QouteRules qouteBusinessRules = ProductionQouteBusinessRules.getINSTANCE();
-
-    //InsuranceBroker insuranceBroker = new DukeOnlineInsuranceBroker(purchaseService,quotingSystem,chargeCalculationRules,qouteBusinessRules);
-    InsuranceBroker insuranceBroker = new DukeOnlineInsuranceBroker();
+      InsuranceBroker insuranceBroker = new DukeOnlineInsuranceBroker();
 
     @Test
     public void searchCarFromExistingCarListShouldReturnTheSameCar() throws Exception {
